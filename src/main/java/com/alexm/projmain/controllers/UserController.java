@@ -1,11 +1,14 @@
 package com.alexm.projmain.controllers;
 
+import com.alexm.projmain.dtos.UserDto;
 import com.alexm.projmain.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /*
@@ -17,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(
-        value ="/api/v1/user",
-        produces="application/json" // So it is treated like JSON and not plaintext
+        value    ="/api/v1/user",
+        produces ="application/json" // So it is treated like JSON and not plaintext
 )
 public class UserController {
     private final UserService userService;
@@ -30,6 +33,12 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<?> getUser() {
-        return new ResponseEntity<>(userService.getUser(), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getUser(null), HttpStatus.OK);
     }
+
+    @PostMapping
+    public ResponseEntity<?> postUser(@RequestBody UserDto user) {
+        return new ResponseEntity<>("Hi, " + user.username() + " Your password is:" + user.password(), HttpStatus.OK);
+    }
+
 }
