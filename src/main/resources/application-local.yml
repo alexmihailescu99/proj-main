@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:${my.postgres.port}/main
+    username: postgres
+    password: pass
+  jpa:
+    hibernate:
+      # Automatically create the MySQL tables
+      ddl-auto: update
+
+my:
+  keycloak:
+    admin:
+      username: admin
+      password: admin
+      cli: admin-cli
+    port: 8090
+    base-url: http://localhost:${my.keycloak.port}
+    login-url: /auth/realms/${keycloak.realm}/protocol/openid-connect/token
+  postgres:
+    port: 5432
+
+  # Don't include the stack trace in the exception response
+server:
+  error:
+    include-stacktrace: never
+  port: 8092
+
+
